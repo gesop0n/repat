@@ -21,11 +21,11 @@ embed-frontend:
 build-backend:
 	cd $(BACKEND_DIR) && go build -o ../$(BIN_DIR)/server ./cmd/server
 
-## dev: API サーバを起動する (:4000)
+## dev-backend: API サーバを起動する (:8080, REPAT_SERVER_PORT で変更可)
 dev-backend:
 	cd $(BACKEND_DIR) && go run ./cmd/server
 
-## dev-frontend: Vite の開発サーバを起動する (/api は :4000 へ転送)
+## dev-frontend: Vite の開発サーバを起動する (/api は REPAT_SERVER_PORT のバックエンドへ転送)
 dev-frontend:
 	pnpm -C $(FRONTEND_DIR) dev
 
