@@ -1,14 +1,20 @@
 package api
 
 import (
+	"fmt"
 	"io/fs"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
 )
 
-func NewRouter(frontend fs.FS) *gin.Engine {
+func NewRouter(frontend fs.FS, trustedProxies []string) (*gin.Engine, error) {
 	r := gin.Default()
+
+	// nil なら X-Forwarded-For を信用せず、接続元アドレスを ClientIP とする
+	if err := r.SetTrustedProxies(trustedProxies); err != nil {
+		return nil, fmt.Errorf("set trusted proxies: %w", err)
+	}
 
 	api := r.Group("/api")
 	{
@@ -23,5 +29,5 @@ func NewRouter(frontend fs.FS) *gin.Engine {
 		RegisterStatic(r, frontend)
 	}
 
-	return r
+	return r, nil
 }
