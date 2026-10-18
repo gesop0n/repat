@@ -1,3 +1,11 @@
 # direnv
 .envrc
 .direnv/
+
+# Environment Variables
+.env
+
+# Build artifacts
+/bin/
+/backend/internal/web/dist/*
+!/backend/internal/web/dist/.gitkeep
