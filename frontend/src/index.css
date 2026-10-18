@@ -99,11 +99,20 @@ code {
   gap: 16px;
 }
 
-.auth label {
+.field {
   display: grid;
   gap: 4px;
+}
+
+.field label {
   font-size: 0.875rem;
   font-weight: 600;
+}
+
+.field-error {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--danger);
 }
 
 .auth input {
@@ -120,6 +129,10 @@ code {
 .auth input:focus {
   outline: 2px solid var(--accent);
   outline-offset: -1px;
+}
+
+.auth input[aria-invalid="true"] {
+  border-color: var(--danger);
 }
 
 .divider {
