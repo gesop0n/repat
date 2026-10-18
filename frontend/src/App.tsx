@@ -11,8 +11,9 @@ function App() {
       <AuthProvider>
         <Routes>
           <Route element={<GuestOnly />}>
-            <Route path="/login" element={<AuthPage mode="login" />} />
-            <Route path="/signup" element={<AuthPage mode="signup" />} />
+            {/* key が無いと同じ AuthPage が使い回され、入力やエラーが画面をまたいで残る */}
+            <Route path="/login" element={<AuthPage key="login" mode="login" />} />
+            <Route path="/signup" element={<AuthPage key="signup" mode="signup" />} />
           </Route>
           <Route path="/auth/callback" element={<AuthCallbackPage />} />
           <Route element={<RequireAuth />}>
