@@ -1,109 +1,257 @@
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow: rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+  --text: #1f2328;
+  --text-muted: #59636e;
+  --bg: #f6f8fa;
+  --surface: #fff;
+  --border: #d1d9e0;
+  --accent: #0969da;
+  --accent-hover: #0757b8;
+  --on-accent: #fff;
+  --github: #24292f;
+  --github-hover: #32383f;
+  --on-github: #fff;
+  --danger: #cf222e;
+  --danger-bg: #ffebe9;
+  --notice-bg: #ddf4ff;
 
-  --sans: system-ui, "Segoe UI", Roboto, sans-serif;
-  --heading: system-ui, "Segoe UI", Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+  --sans: system-ui, "Hiragino Sans", "Noto Sans JP", sans-serif;
+  --mono: ui-monospace, "SFMono-Regular", Consolas, monospace;
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
   color-scheme: light dark;
+  font: 16px/1.6 var(--sans);
   color: var(--text);
   background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow: rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
+    --text: #e6edf3;
+    --text-muted: #9198a1;
+    --bg: #0d1117;
+    --surface: #151b23;
+    --border: #3d444d;
+    --accent: #4493f8;
+    --accent-hover: #6aa8fa;
+    --on-accent: #0d1117;
+    --github: #e6edf3;
+    --github-hover: #cdd5dd;
+    --on-github: #0d1117;
+    --danger: #ff7b72;
+    --danger-bg: #3c1618;
+    --notice-bg: #0c2d4a;
   }
 }
 
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
 body {
   margin: 0;
-}
-
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
+  min-height: 100svh;
 }
 
 h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
-p {
-  margin: 0;
+  margin: 0 0 24px;
+  font-size: 1.5rem;
+  line-height: 1.3;
 }
 
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
+a {
+  color: var(--accent);
 }
 
 code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+  font-family: var(--mono);
+  font-size: 0.875em;
+}
+
+.brand {
+  margin: 0 0 8px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--text-muted);
+}
+
+.card {
+  width: 100%;
+  max-width: 400px;
+  padding: 32px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
+/* ログイン・登録 */
+
+.auth {
+  display: grid;
+  place-items: center;
+  min-height: 100svh;
+  padding: 16px;
+}
+
+.auth form {
+  display: grid;
+  gap: 16px;
+}
+
+.auth label {
+  display: grid;
+  gap: 4px;
+  font-size: 0.875rem;
+  font-weight: 600;
+}
+
+.auth input {
+  width: 100%;
+  padding: 8px 12px;
+  font: inherit;
+  font-weight: 400;
+  color: var(--text);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+.auth input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: -1px;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0;
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.divider::before,
+.divider::after {
+  content: "";
+  flex: 1;
+  border-top: 1px solid var(--border);
+}
+
+.switch {
+  margin: 24px 0 0;
+  font-size: 0.875rem;
+  text-align: center;
+  color: var(--text-muted);
+}
+
+/* ボタン */
+
+.button {
+  width: 100%;
+  padding: 10px 16px;
+  font: inherit;
+  font-weight: 600;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: progress;
+}
+
+.button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.button-primary {
+  color: var(--on-accent);
+  background: var(--accent);
+}
+
+.button-primary:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+
+.button-github {
+  color: var(--on-github);
+  background: var(--github);
+}
+
+.button-github:hover:not(:disabled) {
+  background: var(--github-hover);
+}
+
+.button-secondary {
+  width: auto;
+  padding: 6px 12px;
+  font-size: 0.875rem;
+  color: var(--text);
+  background: var(--surface);
+  border-color: var(--border);
+}
+
+.button-secondary:hover {
+  background: var(--bg);
+}
+
+/* メッセージ */
+
+.message {
+  margin: 0;
+  padding: 8px 12px;
+  font-size: 0.875rem;
+  background: var(--notice-bg);
+  border-radius: 6px;
+}
+
+.message-error {
+  color: var(--danger);
+  background: var(--danger-bg);
+}
+
+/* ログイン後 */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.header .brand {
+  margin: 0;
+  color: var(--text);
+}
+
+.home {
+  display: grid;
+  gap: 16px;
+  justify-items: center;
+  padding: 32px 16px;
+}
+
+.home .card {
+  max-width: 560px;
+}
+
+.home dl {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 8px 16px;
+  margin: 0;
+}
+
+.home dt {
+  color: var(--text-muted);
+}
+
+.home dd {
+  margin: 0;
+  overflow-wrap: anywhere;
 }

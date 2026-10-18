@@ -26,3 +26,5 @@
 | --- | --- | --- |
 | [0000](0000-template.md) | アーキテクチャ判断を記録する | Accepted |
 | [0001](0001-tech-stack.md) | Go のサーバに React の SPA を埋め込み、同一オリジンで配信する | Accepted |
+| [0002](0002-auth.md) | Supabase Auth でログインし、Go の API は JWKS でアクセストークンを検証する | Accepted |
+| [0003](0003-database-access.md) | pgx と sqlc で DB を読み書きし、goose でマイグレーションする | Accepted |

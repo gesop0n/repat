@@ -6,9 +6,17 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+
+	"github.com/gesop0n/repat/backend/internal/auth"
+	"github.com/gesop0n/repat/backend/internal/db"
 )
 
-func NewRouter(frontend fs.FS, trustedProxies []string) (*gin.Engine, error) {
+func NewRouter(
+	frontend fs.FS,
+	trustedProxies []string,
+	queries *db.Queries,
+	verifier *auth.Verifier,
+) (*gin.Engine, error) {
 	r := gin.Default()
 
 	// nil なら X-Forwarded-For を信用せず、接続元アドレスを ClientIP とする
@@ -23,6 +31,9 @@ func NewRouter(frontend fs.FS, trustedProxies []string) (*gin.Engine, error) {
 				"status": "ok",
 			})
 		})
+
+		authed := api.Group("", auth.Middleware(verifier))
+		authed.GET("/me", getMe(queries))
 	}
 
 	if frontend != nil {

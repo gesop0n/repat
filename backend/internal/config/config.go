@@ -30,6 +30,9 @@ type Config struct {
 	Port int `env:"REPAT_SERVER_PORT" envDefault:"8080"`
 	// カンマ区切りの IP / CIDR。未設定なら X-Forwarded-For を信用しない
 	TrustedProxies []string `env:"REPAT_TRUSTED_PROXIES"`
+	DatabaseURL    string   `env:"DATABASE_URL,notEmpty"`
+	// アクセストークンの発行元 (iss) と JWKS の取得先に使う
+	SupabaseURL string `env:"SUPABASE_URL,notEmpty"`
 }
 
 func Load() (Config, error) {

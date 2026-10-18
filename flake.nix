@@ -28,6 +28,9 @@
             # Frontend
             nodejs_24
             pnpm
+
+            # ローカルの Supabase (Docker が必要)
+            supabase-cli
           ];
 
           shellHook = ''
