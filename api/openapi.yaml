@@ -1,0 +1,93 @@
+# repat の API の仕様
+# ここから Go のサーバ (oapi-codegen) と TS のクライアント (orval) を生成する。変更したら `make openapi` を実行する
+# oapi-codegen が使う kin-openapi は 3.1 に一部しか対応していないため、3.0 で書く
+openapi: 3.0.3
+info:
+  title: repat API
+  version: 0.1.0
+servers:
+  - url: /api
+# 既定でログインを必須にし、不要な操作だけ `security: []` で外す
+security:
+  - bearerAuth: []
+paths:
+  /health:
+    get:
+      operationId: getHealth
+      summary: サーバが動いているかを返す
+      security: []
+      responses:
+        "200":
+          description: 動いている
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Health"
+  /me:
+    get:
+      operationId: getMe
+      summary: ログイン中のユーザーを返す
+      description: 初回の呼び出しでアプリ側のユーザー (profiles の行) を作る
+      responses:
+        "200":
+          description: ログイン中のユーザー
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Me"
+        "401":
+          description: アクセストークンが無いか、検証できない
+          headers:
+            WWW-Authenticate:
+              $ref: "#/components/headers/WWWAuthenticate"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "500":
+          description: サーバ内部のエラー
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+# orval (8.43) は zod のスキーマを出力するとき components/responses の型を生成しないため、
+# レスポンスは components/responses にまとめず、操作ごとに書く
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: Supabase Auth が発行したアクセストークン
+  headers:
+    WWWAuthenticate:
+      schema:
+        type: string
+        example: Bearer
+  schemas:
+    Health:
+      type: object
+      required: [status]
+      properties:
+        status:
+          type: string
+          example: ok
+    Me:
+      type: object
+      required: [id, email, created_at]
+      properties:
+        id:
+          type: string
+          format: uuid
+        email:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+    ErrorResponse:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: string
+          example: unauthorized

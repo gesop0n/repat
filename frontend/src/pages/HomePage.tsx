@@ -1,25 +1,8 @@
-import { useEffect, useState } from "react";
-import { fetchMe, type Me } from "../lib/api";
+import { useGetMe } from "../api/generated/repat";
 import { supabase } from "../lib/supabase";
 
 export function HomePage() {
-  const [me, setMe] = useState<Me | null>(null);
-  const [error, setError] = useState<string | null>(null);
-
-  useEffect(() => {
-    let ignore = false;
-    fetchMe().then(
-      (me) => {
-        if (!ignore) setMe(me);
-      },
-      (err: unknown) => {
-        if (!ignore) setError(err instanceof Error ? err.message : String(err));
-      },
-    );
-    return () => {
-      ignore = true;
-    };
-  }, []);
+  const { data: me, error } = useGetMe();
 
   return (
     <div className="app">
@@ -38,7 +21,7 @@ export function HomePage() {
       <main className="home">
         {error && (
           <p className="message message-error" role="alert">
-            ユーザー情報を取得できませんでした ({error})
+            ユーザー情報を取得できませんでした ({error.message})
           </p>
         )}
         {me && (

@@ -1,0 +1,11 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/oapi-codegen/oapi-codegen/v2.8.0/configuration-schema.json
+# api/openapi.yaml から gin のサーバのインタフェースと型を生成する (`make openapi`)
+package: oapi
+output: internal/oapi/oapi.gen.go
+generate:
+  gin-server: true
+  # レスポンスをステータスごとの型で返させ、仕様書に無いレスポンスを返せないようにする
+  strict-server: true
+  models: true
+  # リクエストの検証に使う仕様書を埋め込む
+  embedded-spec: true

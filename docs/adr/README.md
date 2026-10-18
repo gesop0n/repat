@@ -28,3 +28,4 @@
 | [0001](0001-tech-stack.md) | Go のサーバに React の SPA を埋め込み、同一オリジンで配信する | Accepted |
 | [0002](0002-auth.md) | Supabase Auth でログインし、Go の API は JWKS でアクセストークンを検証する | Accepted |
 | [0003](0003-database-access.md) | pgx と sqlc で DB を読み書きし、goose でマイグレーションする | Accepted |
+| [0004](0004-openapi.md) | OpenAPI の仕様書を先に書き、Go のサーバと TS のクライアントを生成する | Accepted |

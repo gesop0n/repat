@@ -10,7 +10,7 @@ GOOSE := cd $(BACKEND_DIR) && GOOSE_DRIVER=postgres GOOSE_DBSTRING="$$DATABASE_U
 
 .PHONY: build build-frontend build-backend embed-frontend \
 	dev-backend dev-frontend test lint clean \
-	supabase-start supabase-stop sqlc \
+	supabase-start supabase-stop sqlc openapi \
 	migrate-up migrate-down migrate-status migrate-new
 
 ## build: frontend をビルドして backend のバイナリに埋め込む
@@ -55,6 +55,11 @@ $(SIGNING_KEYS):
 ## sqlc: backend/db/queries の SQL から Go のコードを生成する
 sqlc:
 	cd $(BACKEND_DIR) && go tool sqlc generate
+
+## openapi: api/openapi.yaml から Go のサーバ (backend/internal/oapi) と TS のクライアント (frontend/src/api/generated) を生成する
+openapi:
+	cd $(BACKEND_DIR) && go tool oapi-codegen -config oapi-codegen.yaml ../api/openapi.yaml
+	pnpm -C $(FRONTEND_DIR) gen:api
 
 migrate-up:
 	$(GOOSE) up

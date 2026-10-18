@@ -8,10 +8,12 @@
     "build": "tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview",
-    "fmt": "oxfmt"
+    "fmt": "oxfmt",
+    "gen:api": "orval"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.118.0",
+    "@tanstack/react-query": "^5.104.3",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-router": "^8.4.0",
@@ -22,6 +24,7 @@
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.7",
     "@vitejs/plugin-react": "^6.1.1",
+    "orval": "^8.43.0",
     "oxfmt": "^0.73.0",
     "oxlint": "^1.81.0",
     "typescript": "~6.0.2",
