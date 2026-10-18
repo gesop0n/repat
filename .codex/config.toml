@@ -1,0 +1,5 @@
+# Codex は .mcp.json を読まないため、同じ MCP サーバをここにも書く
+# 設定を変えるときは .mcp.json も合わせて変える
+[mcp_servers.chrome-devtools]
+command = "npx"
+args = ["-y", "chrome-devtools-mcp@latest"]
