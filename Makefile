@@ -7,7 +7,11 @@ BIN_DIR      := bin
 	dev-backend dev-frontend test lint clean
 
 ## build: frontend をビルドして backend のバイナリに埋め込む
-build: build-frontend embed-frontend build-backend
+## make -j でも順序が崩れないよう、サブ make で順番に実行する
+build:
+	$(MAKE) build-frontend
+	$(MAKE) embed-frontend
+	$(MAKE) build-backend
 
 build-frontend:
 	pnpm -C $(FRONTEND_DIR) install --frozen-lockfile
