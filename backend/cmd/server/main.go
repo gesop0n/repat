@@ -18,12 +18,12 @@ func main() {
 	// frontend 未ビルドでも API の開発はできるようにする
 	frontendFS, err := web.FS()
 	if err != nil {
-		log.Printf("frontend is not embeded, serving API only: %v", err)
+		log.Printf("frontend is not embedded, serving API only: %v", err)
 	}
 
 	router := api.NewRouter(frontendFS)
 
-	if err := router.Run(fmt.Sprintf(":%d", cfg.PORT)); err != nil {
+	if err := router.Run(fmt.Sprintf(":%d", cfg.Port)); err != nil {
 		log.Fatalf("start HTTP server: %v", err)
 	}
 }

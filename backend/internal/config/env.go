@@ -7,7 +7,7 @@ import (
 )
 
 type Config struct {
-	PORT int `env:"REPAT_SERVER_PORT" envDefault:"8080"`
+	Port int `env:"REPAT_SERVER_PORT" envDefault:"8080"`
 }
 
 func Load() (Config, error) {
