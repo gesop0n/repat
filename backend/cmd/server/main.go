@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/gesop0n/repat/internal/api"
-	"github.com/gesop0n/repat/internal/config"
-	"github.com/gesop0n/repat/internal/web"
+	"github.com/gesop0n/repat/backend/internal/api"
+	"github.com/gesop0n/repat/backend/internal/config"
+	"github.com/gesop0n/repat/backend/internal/web"
 )
 
 func main() {
