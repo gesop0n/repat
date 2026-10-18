@@ -25,3 +25,4 @@
 | No. | タイトル | Status |
 | --- | --- | --- |
 | [0000](0000-template.md) | アーキテクチャ判断を記録する | Accepted |
+| [0001](0001-tech-stack.md) | Go のサーバに React の SPA を埋め込み、同一オリジンで配信する | Accepted |
