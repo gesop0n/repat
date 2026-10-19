@@ -14,6 +14,24 @@ export default defineConfig({
     },
   },
   plugins: [react(), tailwindcss()],
+  build: {
+    rolldownOptions: {
+      output: {
+        // ライブラリをアプリのコードと別のファイルにする。アプリだけ変えたときは、ブラウザがキャッシュ済みのライブラリをそのまま使える
+        codeSplitting: {
+          groups: [
+            // React はほとんど更新しないので、ほかのライブラリともさらに分ける
+            {
+              name: "react",
+              test: /node_modules[\\/](react|react-dom|scheduler)[\\/]/,
+              priority: 20,
+            },
+            { name: "vendor", test: /node_modules[\\/]/, priority: 10 },
+          ],
+        },
+      },
+    },
+  },
   server: {
     proxy: {
       "/api": `http://localhost:${backendPort}`,

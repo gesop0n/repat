@@ -1,5 +1,5 @@
 import type { ZodType } from "zod";
-import { supabase } from "../lib/supabase";
+import { supabaseAuth } from "../lib/supabase";
 
 export class ApiError extends Error {
   readonly status: number;
@@ -20,7 +20,7 @@ export async function apiFetch<T>(
   const { schema, ...init } = options;
 
   // 期限が切れていれば、ここで更新されたトークンが返る
-  const { data } = await supabase.auth.getSession();
+  const { data } = await supabaseAuth.getSession();
 
   const headers = new Headers(init.headers);
   if (data.session) {

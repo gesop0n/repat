@@ -3,7 +3,7 @@ import { Brand } from "@/components/Brand";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useGetMe } from "../api/generated/repat";
-import { supabase } from "../lib/supabase";
+import { supabaseAuth } from "../lib/supabase";
 
 export function HomePage() {
   const { data: me, error } = useGetMe();
@@ -13,7 +13,7 @@ export function HomePage() {
       <header className="flex items-center justify-between border-b bg-card/80 px-4 py-3 backdrop-blur">
         <Brand className="text-2xl" />
         {/* ログアウトするとセッションが消え、RequireAuth が /login へ移動させる */}
-        <Button type="button" variant="outline" onClick={() => void supabase.auth.signOut()}>
+        <Button type="button" variant="outline" onClick={() => void supabaseAuth.signOut()}>
           ログアウト
         </Button>
       </header>

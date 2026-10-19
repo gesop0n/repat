@@ -1,4 +1,4 @@
-import type { AuthError } from "@supabase/supabase-js";
+import type { AuthError } from "@supabase/auth-js";
 
 // https://supabase.com/docs/guides/auth/debugging/error-codes
 export function authErrorMessage(error: AuthError): string {

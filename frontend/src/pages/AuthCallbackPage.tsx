@@ -3,7 +3,7 @@ import { AuthLayout } from "@/components/AuthLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useAuth } from "../auth/context";
 
-// OAuth から戻る先。code とセッションの交換は supabase-js が初期化時に行う
+// OAuth から戻る先。code とセッションの交換は auth-js が初期化時に行う
 export function AuthCallbackPage() {
   const { session, loading } = useAuth();
   const [params] = useSearchParams();

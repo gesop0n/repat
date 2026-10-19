@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { authErrorMessage } from "../auth/errors";
-import { supabase } from "../lib/supabase";
+import { supabaseAuth } from "../lib/supabase";
 
 type Mode = "login" | "signup";
 
@@ -66,8 +66,8 @@ export function AuthPage({ mode }: { mode: Mode }) {
       // 成功するとセッションが更新され、GuestOnly がトップへ移動させる
       const { data, error } =
         mode === "login"
-          ? await supabase.auth.signInWithPassword(value)
-          : await supabase.auth.signUp(value);
+          ? await supabaseAuth.signInWithPassword(value)
+          : await supabaseAuth.signUp(value);
 
       if (error) {
         setError(authErrorMessage(error));
@@ -84,7 +84,7 @@ export function AuthPage({ mode }: { mode: Mode }) {
   async function handleGitHub() {
     setError(null);
     // GitHub に移動し、戻ってきたら /auth/callback でセッションを受け取る
-    const { error } = await supabase.auth.signInWithOAuth({
+    const { error } = await supabaseAuth.signInWithOAuth({
       provider: "github",
       options: { redirectTo: `${window.location.origin}/auth/callback` },
     });
