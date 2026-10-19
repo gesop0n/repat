@@ -2,6 +2,11 @@ import { revalidateLogic, useForm, useStore } from "@tanstack/react-form";
 import { useState } from "react";
 import { Link } from "react-router";
 import { z } from "zod";
+import { AuthLayout } from "@/components/AuthLayout";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { authErrorMessage } from "../auth/errors";
 import { supabase } from "../lib/supabase";
 
@@ -89,82 +94,105 @@ export function AuthPage({ mode }: { mode: Mode }) {
   }
 
   return (
-    <main className="auth">
-      <div className="card">
-        <p className="brand">repat</p>
-        <h1>{text.title}</h1>
+    <AuthLayout>
+      <Card className="gap-6 rounded-2xl py-8 shadow-card [--card-spacing:--spacing(8)] max-sm:[--card-spacing:--spacing(6)]">
+        <CardHeader className="text-center">
+          <CardTitle>
+            <h1 className="text-2xl font-bold tracking-tight">{text.title}</h1>
+          </CardTitle>
+        </CardHeader>
 
-        <button
-          type="button"
-          className="button button-github"
-          onClick={handleGitHub}
-          disabled={isSubmitting}
-        >
-          {text.github}
-        </button>
+        <CardContent>
+          <Button
+            type="button"
+            variant="outline"
+            className="h-11 w-full"
+            onClick={handleGitHub}
+            disabled={isSubmitting}
+          >
+            {text.github}
+          </Button>
 
-        <div className="divider">
-          <span>または</span>
-        </div>
+          <div className="my-6 flex items-center gap-3 text-sm text-muted-foreground before:flex-1 before:border-t before:border-border after:flex-1 after:border-t after:border-border">
+            または
+          </div>
 
-        {/* ブラウザの検証ではなく、schemas のメッセージを出す */}
-        <form
-          noValidate
-          onSubmit={(e) => {
-            e.preventDefault();
-            void form.handleSubmit();
-          }}
-        >
-          <form.Field name="email">
-            {(field) => (
-              <TextField
-                label="メールアドレス"
-                type="email"
-                name={field.name}
-                autoComplete="email"
-                value={field.state.value}
-                error={field.state.meta.errors[0]?.message}
-                onBlur={field.handleBlur}
-                onChange={field.handleChange}
-              />
+          {/* ブラウザの検証ではなく、schemas のメッセージを出す */}
+          <form
+            noValidate
+            className="grid gap-5"
+            onSubmit={(e) => {
+              e.preventDefault();
+              void form.handleSubmit();
+            }}
+          >
+            <form.Field name="email">
+              {(field) => (
+                <TextField
+                  label="メールアドレス"
+                  type="email"
+                  name={field.name}
+                  autoComplete="email"
+                  value={field.state.value}
+                  error={field.state.meta.errors[0]?.message}
+                  onBlur={field.handleBlur}
+                  onChange={field.handleChange}
+                />
+              )}
+            </form.Field>
+            <form.Field name="password">
+              {(field) => (
+                <TextField
+                  label="パスワード"
+                  type="password"
+                  name={field.name}
+                  autoComplete={text.passwordAutoComplete}
+                  value={field.state.value}
+                  error={field.state.meta.errors[0]?.message}
+                  onBlur={field.handleBlur}
+                  onChange={field.handleChange}
+                />
+              )}
+            </form.Field>
+
+            {error && (
+              <p
+                className="rounded-lg bg-destructive/10 px-4 py-3 text-sm text-destructive"
+                role="alert"
+              >
+                {error}
+              </p>
             )}
-          </form.Field>
-          <form.Field name="password">
-            {(field) => (
-              <TextField
-                label="パスワード"
-                type="password"
-                name={field.name}
-                autoComplete={text.passwordAutoComplete}
-                value={field.state.value}
-                error={field.state.meta.errors[0]?.message}
-                onBlur={field.handleBlur}
-                onChange={field.handleChange}
-              />
+            {notice && (
+              <p
+                className="rounded-lg bg-accent px-4 py-3 text-sm text-accent-foreground"
+                role="status"
+              >
+                {notice}
+              </p>
             )}
-          </form.Field>
 
-          {error && (
-            <p className="message message-error" role="alert">
-              {error}
-            </p>
-          )}
-          {notice && (
-            <p className="message" role="status">
-              {notice}
-            </p>
-          )}
+            <Button
+              type="submit"
+              className="mt-2 h-11 w-full shadow-action hover:bg-primary-hover"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? text.pending : text.submit}
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
 
-          <button type="submit" className="button button-primary" disabled={isSubmitting}>
-            {isSubmitting ? text.pending : text.submit}
-          </button>
-        </form>
-
-        <p className="switch">
-          {text.switchLead} <Link to={text.switchTo}>{text.switchLabel}</Link>
-        </p>
-      </div>
-    </main>
+      <p className="mt-7 text-center text-sm text-muted-foreground">
+        {text.switchLead}{" "}
+        <Link
+          to={text.switchTo}
+          className="rounded-sm font-semibold text-primary underline-offset-4 hover:underline"
+        >
+          {text.switchLabel}
+        </Link>
+      </p>
+    </AuthLayout>
   );
 }
 
@@ -182,19 +210,20 @@ type TextFieldProps = {
 function TextField({ label, name, error, onChange, ...input }: TextFieldProps) {
   const errorId = `${name}-error`;
   return (
-    <div className="field">
-      <label htmlFor={name}>{label}</label>
-      <input
+    <div className="grid gap-2">
+      <Label htmlFor={name}>{label}</Label>
+      <Input
         {...input}
         id={name}
         name={name}
         required
+        className="h-11 bg-card"
         aria-invalid={error ? true : undefined}
         aria-describedby={error ? errorId : undefined}
         onChange={(e) => onChange(e.target.value)}
       />
       {error && (
-        <p id={errorId} className="field-error">
+        <p id={errorId} className="text-sm text-destructive">
           {error}
         </p>
       )}

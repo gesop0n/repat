@@ -1,270 +1,201 @@
-:root {
-  --text: #1f2328;
-  --text-muted: #59636e;
-  --bg: #f6f8fa;
-  --surface: #fff;
-  --border: #d1d9e0;
-  --accent: #0969da;
-  --accent-hover: #0757b8;
-  --on-accent: #fff;
-  --github: #24292f;
-  --github-hover: #32383f;
-  --on-github: #fff;
-  --danger: #cf222e;
-  --danger-bg: #ffebe9;
-  --notice-bg: #ddf4ff;
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/geist";
 
-  --sans: system-ui, "Hiragino Sans", "Noto Sans JP", sans-serif;
+/* ダークモードは OS の設定に合わせる */
+@custom-variant dark (@media (prefers-color-scheme: dark));
+
+@theme inline {
+  --font-sans: "Geist Variable", var(--sans);
+  --font-mono: var(--mono);
+  --font-heading: var(--font-sans);
+  --font-brand: "Avenir Next", "Trebuchet MS", var(--sans);
+  --shadow-card: var(--shadow);
+  --shadow-action: var(--shadow-primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* 配色は spaco の Aurora プリセットに揃える。背景のオーロラも同じ色を使う */
+:root {
+  --aurora-blue: #9cacfa;
+  --aurora-sky: #b5cdf8;
+  --aurora-ice: #e0effb;
+  --aurora-cloud: #f8fcfd;
+  --aurora-cyan: #b6e7f3;
+  --aurora-mist: #e4f4fa;
+  --aurora-teal: #c4eaf3;
+  --aurora-pink: #f4dff5;
+  --aurora-lilac: #e7cef6;
+  --aurora-lavender: #d5cdfb;
+  --aurora-violet: #c9b8f8;
+  --aurora-highlight: #ffffff;
+  --aurora-base-start: #f0f5ff;
+  --aurora-base-mid: #fbfdfd;
+  --aurora-base-end: #f2f5fe;
+  --aurora-page-gradient:
+    radial-gradient(ellipse at 95% 0%, var(--aurora-sky) 0%, transparent 40%),
+    radial-gradient(ellipse at 0% 100%, var(--aurora-lavender) 0%, transparent 35%),
+    linear-gradient(
+      135deg,
+      var(--aurora-base-start),
+      var(--aurora-base-mid) 55%,
+      var(--aurora-base-end)
+    );
+
+  --background: #f5f7fc;
+  --foreground: #29334d;
+  --card: #ffffff;
+  --card-foreground: var(--foreground);
+  --popover: #ffffff;
+  --popover-foreground: var(--foreground);
+  --primary: #5261c9;
+  --primary-hover: #414faa;
+  --primary-foreground: #ffffff;
+  --secondary: #eaf4f8;
+  --secondary-foreground: #355d70;
+  --muted: #edf0f8;
+  --muted-foreground: #65718a;
+  --accent: #eceefb;
+  --accent-foreground: #4955ab;
+  --destructive: #b42335;
+  --border: #dfe5f1;
+  --input: #cbd4e9;
+  --ring: #7c8bdc;
+  --chart-1: #5261c9;
+  --chart-2: #4793ac;
+  --chart-3: #a078c5;
+  --chart-4: #cb8eb7;
+  --chart-5: #6faeb9;
+  --radius: 0.75rem;
+  --sidebar: #f9fafe;
+  --sidebar-foreground: var(--foreground);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: #e9edfc;
+  --sidebar-accent-foreground: #4655b1;
+  --sidebar-border: #dfe4f3;
+  --sidebar-ring: var(--ring);
+  --shadow: 0 14px 36px -16px rgb(68 76 127 / 18%);
+  --shadow-primary: 0 5px 14px rgb(82 97 201 / 16%);
+  --sans: -apple-system, BlinkMacSystemFont, "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
   --mono: ui-monospace, "SFMono-Regular", Consolas, monospace;
 
   color-scheme: light dark;
-  font: 16px/1.6 var(--sans);
-  color: var(--text);
-  background: var(--bg);
-  -webkit-font-smoothing: antialiased;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --text: #e6edf3;
-    --text-muted: #9198a1;
-    --bg: #0d1117;
-    --surface: #151b23;
-    --border: #3d444d;
-    --accent: #4493f8;
-    --accent-hover: #6aa8fa;
-    --on-accent: #0d1117;
-    --github: #e6edf3;
-    --github-hover: #cdd5dd;
-    --on-github: #0d1117;
-    --danger: #ff7b72;
-    --danger-bg: #3c1618;
-    --notice-bg: #0c2d4a;
+    --aurora-blue: #354274;
+    --aurora-sky: #2f456c;
+    --aurora-ice: #23334e;
+    --aurora-cloud: #1c293a;
+    --aurora-cyan: #245468;
+    --aurora-mist: #243c4c;
+    --aurora-teal: #285366;
+    --aurora-pink: #4b3658;
+    --aurora-lilac: #4b3a68;
+    --aurora-lavender: #403a65;
+    --aurora-violet: #4e407b;
+    --aurora-highlight: #8996c9;
+    --aurora-base-start: #192035;
+    --aurora-base-mid: #192831;
+    --aurora-base-end: #221f37;
+
+    --background: #171d2d;
+    --foreground: #e6eaf5;
+    --card: #20283c;
+    --popover: #20283c;
+    --primary: #abb7ff;
+    --primary-hover: #c0c9ff;
+    --primary-foreground: #1c2547;
+    --secondary: #243e4c;
+    --secondary-foreground: #c0e6f1;
+    --muted: #293149;
+    --muted-foreground: #a5b1cb;
+    --accent: #303959;
+    --accent-foreground: #c5cfff;
+    --destructive: #ff9ca9;
+    --border: #35405c;
+    --input: #465274;
+    --ring: #abb7ff;
+    --chart-1: #abb7ff;
+    --chart-2: #85cde0;
+    --chart-3: #c3a6ea;
+    --chart-4: #e5aed2;
+    --chart-5: #95d8d8;
+    --sidebar: #1b2235;
+    --sidebar-accent: #303959;
+    --sidebar-accent-foreground: #c5cfff;
+    --sidebar-border: #35405c;
+    --shadow: 0 14px 36px -16px rgb(0 0 0 / 40%);
+    --shadow-primary: 0 5px 14px rgb(171 183 255 / 12%);
   }
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-}
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
 
-body {
-  margin: 0;
-  min-height: 100svh;
-}
+  html {
+    @apply font-sans;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 
-h1 {
-  margin: 0 0 24px;
-  font-size: 1.5rem;
-  line-height: 1.3;
-}
+  body {
+    min-width: 320px;
+    @apply bg-background text-foreground;
+  }
 
-a {
-  color: var(--accent);
-}
+  button:not(:disabled),
+  [role="button"]:not([aria-disabled="true"]) {
+    cursor: pointer;
+  }
 
-code {
-  font-family: var(--mono);
-  font-size: 0.875em;
-}
-
-.brand {
-  margin: 0 0 8px;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  color: var(--text-muted);
-}
-
-.card {
-  width: 100%;
-  max-width: 400px;
-  padding: 32px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-}
-
-/* ログイン・登録 */
-
-.auth {
-  display: grid;
-  place-items: center;
-  min-height: 100svh;
-  padding: 16px;
-}
-
-.auth form {
-  display: grid;
-  gap: 16px;
-}
-
-.field {
-  display: grid;
-  gap: 4px;
-}
-
-.field label {
-  font-size: 0.875rem;
-  font-weight: 600;
-}
-
-.field-error {
-  margin: 0;
-  font-size: 0.875rem;
-  color: var(--danger);
-}
-
-.auth input {
-  width: 100%;
-  padding: 8px 12px;
-  font: inherit;
-  font-weight: 400;
-  color: var(--text);
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-}
-
-.auth input:focus {
-  outline: 2px solid var(--accent);
-  outline-offset: -1px;
-}
-
-.auth input[aria-invalid="true"] {
-  border-color: var(--danger);
-}
-
-.divider {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin: 20px 0;
-  font-size: 0.875rem;
-  color: var(--text-muted);
-}
-
-.divider::before,
-.divider::after {
-  content: "";
-  flex: 1;
-  border-top: 1px solid var(--border);
-}
-
-.switch {
-  margin: 24px 0 0;
-  font-size: 0.875rem;
-  text-align: center;
-  color: var(--text-muted);
-}
-
-/* ボタン */
-
-.button {
-  width: 100%;
-  padding: 10px 16px;
-  font: inherit;
-  font-weight: 600;
-  border: 1px solid transparent;
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-.button:disabled {
-  opacity: 0.6;
-  cursor: progress;
-}
-
-.button:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
-
-.button-primary {
-  color: var(--on-accent);
-  background: var(--accent);
-}
-
-.button-primary:hover:not(:disabled) {
-  background: var(--accent-hover);
-}
-
-.button-github {
-  color: var(--on-github);
-  background: var(--github);
-}
-
-.button-github:hover:not(:disabled) {
-  background: var(--github-hover);
-}
-
-.button-secondary {
-  width: auto;
-  padding: 6px 12px;
-  font-size: 0.875rem;
-  color: var(--text);
-  background: var(--surface);
-  border-color: var(--border);
-}
-
-.button-secondary:hover {
-  background: var(--bg);
-}
-
-/* メッセージ */
-
-.message {
-  margin: 0;
-  padding: 8px 12px;
-  font-size: 0.875rem;
-  background: var(--notice-bg);
-  border-radius: 6px;
-}
-
-.message-error {
-  color: var(--danger);
-  background: var(--danger-bg);
-}
-
-/* ログイン後 */
-
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12px 16px;
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
-}
-
-.header .brand {
-  margin: 0;
-  color: var(--text);
-}
-
-.home {
-  display: grid;
-  gap: 16px;
-  justify-items: center;
-  padding: 32px 16px;
-}
-
-.home .card {
-  max-width: 560px;
-}
-
-.home dl {
-  display: grid;
-  grid-template-columns: max-content 1fr;
-  gap: 8px 16px;
-  margin: 0;
-}
-
-.home dt {
-  color: var(--text-muted);
-}
-
-.home dd {
-  margin: 0;
-  overflow-wrap: anywhere;
+  ::selection {
+    color: var(--foreground);
+    background: var(--accent);
+  }
 }
